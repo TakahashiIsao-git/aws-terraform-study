@@ -24,3 +24,7 @@ variable "private_subnet_1a_cidr" {
 variable "private_subnet_1c_cidr" {
   type = string
 }
+
+variable "my_ip" {
+  type = string
+}
