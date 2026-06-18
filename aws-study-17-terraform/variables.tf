@@ -61,5 +61,22 @@ variable "key_name" {
 }
 
 # ----------------------------------
-# 
+# RDS
 # ----------------------------------
+
+# データベース名
+variable "db_name" {
+  type = string
+}
+
+# マスターユーザ名
+variable "db_username" {
+  type = string
+}
+
+# マスターパスワード
+# plan/apply時はマスク表示 
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
