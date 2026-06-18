@@ -45,7 +45,7 @@ resource "aws_db_instance" "study_rds" {
   allocated_storage = 20
 
   # 自動で容量を増やす上限サイズ。
-  # max_allocated_storage = 100
+  max_allocated_storage = 100
 
   port = 3306
 
@@ -60,12 +60,12 @@ resource "aws_db_instance" "study_rds" {
   publicly_accessible = false
 
   # 自動バックアップの保持期間（日数）を設定
-  # backup_retention_period = 7
+  backup_retention_period = 7
 
   # 学習環境のため最終スナップショットを作成しない
   skip_final_snapshot = true
 
-  # auto_minor_version_upgrade = true
+  auto_minor_version_upgrade = true
 
   # 削除保護を無効
   deletion_protection = false
