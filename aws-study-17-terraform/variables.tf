@@ -80,3 +80,11 @@ variable "db_password" {
   type      = string
   sensitive = true
 }
+
+# ----------------------------------
+# CloudWatch Alarm
+# ----------------------------------
+
+variable "cpu_alarm_threshold" {
+  type = number
+}
