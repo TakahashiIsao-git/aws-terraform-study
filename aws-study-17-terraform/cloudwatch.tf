@@ -3,7 +3,7 @@
 # --------------------------------------------------
 
 # EC2 CPU監視
-# # CPU使用率が80%以上の状態が15分継続したらALARM
+# 5分間隔で3回評価し、そのうち2回以上CPU使用率が80%超でALARM
 
 resource "aws_cloudwatch_metric_alarm" "ec2_cpu_high" {
 
@@ -11,15 +11,19 @@ resource "aws_cloudwatch_metric_alarm" "ec2_cpu_high" {
   alarm_description = "EC2 CPU Utilization is high"
 
   comparison_operator = "GreaterThanThreshold"
+  threshold           = var.cpu_alarm_threshold
+
   evaluation_periods  = 3
+  datapoints_to_alarm = 2
+
+  treat_missing_data = "missing"
+  actions_enabled    = false
 
   metric_name = "CPUUtilization"
   namespace   = "AWS/EC2"
 
   period    = 300
   statistic = "Average"
-
-  threshold = var.cpu_alarm_threshold
 
   dimensions = {
 
