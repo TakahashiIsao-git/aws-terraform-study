@@ -1,7 +1,8 @@
-# ----------
-# リソース定義
-# ----------
-# VPCを作る
+# --------------------------------------------------
+# VPC
+# --------------------------------------------------
+
+# Webシステム用のVPCを作成する
 resource "aws_vpc" "study_vpc" {
 
   cidr_block           = var.vpc_cidr
@@ -13,8 +14,8 @@ resource "aws_vpc" "study_vpc" {
   }
 }
 
-# Subnetを作る
-# PublicSubnetはALBアクセス用
+# Public Subnetを作成する
+# インターネットからアクセス可能なリソースを配置する
 resource "aws_subnet" "public_subnet_1a" {
 
   vpc_id                  = aws_vpc.study_vpc.id
@@ -39,7 +40,8 @@ resource "aws_subnet" "public_subnet_1c" {
   }
 }
 
-# PrivateSubnetは外部インターネットから直接アクセスさせない。
+# Private Subnetを作成する
+# インターネットから直接アクセスさせないリソースを配置する
 resource "aws_subnet" "private_subnet_1a" {
 
   vpc_id            = aws_vpc.study_vpc.id
@@ -62,8 +64,7 @@ resource "aws_subnet" "private_subnet_1c" {
   }
 }
 
-# EC2へSSH接続して学習を行うため
-# Internet GatewayをVPCへ接続する
+# VPCとインターネットを接続するためのInternet Gatewayを作成する
 resource "aws_internet_gateway" "study_igw" {
 
   vpc_id = aws_vpc.study_vpc.id
@@ -100,6 +101,7 @@ resource "aws_route_table_association" "public_1a" {
 }
 
 resource "aws_route_table_association" "public_1c" {
+
   subnet_id      = aws_subnet.public_subnet_1c.id
   route_table_id = aws_route_table.public_rt.id
 }
